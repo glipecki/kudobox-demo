@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" lang="pl" ng-app="KudoBox">
+	<head>
+		<style type="text/css">
+			[ng\:cloak], [ng-cloak], .ng-cloak {
+			  display: none !important;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Hello!</p>
+
+		<div ng-cloak id="footer" ng-controller="FooterController as footerController">
+			{{ footerController.sayHello() }}
+			<input ng-model="footerController.name" />
+			{{ footerController.name }}
+		</div>
+
+		<script src="vendor.js"></script>
+		<script src="kudobox.js"></script>
+	</body>
+</html>

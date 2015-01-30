@@ -1,2 +1,7 @@
 bower_components/
 node_modules/
+.project
+.settings
+*.sublime-project
+*.sublime-workspace
+.classpath
