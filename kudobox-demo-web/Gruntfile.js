@@ -21,32 +21,54 @@ module.exports = function(grunt) {
 		config: config,
 		pkg: grunt.file.readJSON('package.json'),
 		traceur: {
+			// options: {
+			// 	experimental: true,
+   //    			moduleNames: false,
+   //    			copyRuntime: '<%= config.dir.build %>'
+			// },
 			options: {
 				experimental: true,
-      			moduleNames: false,
-      			copyRuntime: '<%= config.dir.build %>'
+      			moduleNames: true,
+      			copyRuntime: '<%= config.dir.build %>',
+      			moduleNaming: {
+      				stripPrefix: 'target/compiled-js'
+      			}
 			},
 			app: {
+				// files: [{
+				// 	expand: true,
+				// 	cwd: '<%= config.dir.build %>',
+				// 	src: ['kudobox.js'],
+				// 	dest: '<%= config.dir.output %>/'
+				// }]
 				files: [{
 					expand: true,
-					cwd: '<%= config.dir.build %>',
-					src: ['kudobox.js'],
-					dest: '<%= config.dir.output %>/'
+					cwd: '<%= config.dir.source_js %>',
+					src: ['**/*.js'],
+					dest: '<%= config.dir.build %>/compiled-js/'
 				}]
 			}
 		},
 		concat: {
 			options: {
+					stripBanners: true,
 					banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd hh:MM:ss") %> */\n',
-					separator: '\n'
+					separator: '\n',
+					process: function(src, filepath) {
+						return src.replace(/(^|\n)(|\t)*(\/\/# sourceURL=)(.*)($|\n)/gi, '\n// from file: $4');
+					}
 			},
 			vendor: {
 				src: ['<%= config.vendor.js %>'],
 				dest: '<%= config.dir.output %>/vendor.js'
 			},
+			// app_js: {
+			// 	src: '<%= config.dir.source_js %>/**/*.js',
+			// 	dest: '<%= config.dir.build %>/kudobox.js'
+			// }
 			app_js: {
-				src: '<%= config.dir.source_js %>/**/*.js',
-				dest: '<%= config.dir.build %>/kudobox.js'
+				src: '<%= config.dir.build %>/compiled-js/**/*.js',
+				dest: '<%= config.dir.output %>/kudobox.js'
 			}
 		},
 		watch: {
@@ -67,7 +89,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-traceur');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('build', ['concat', 'traceur']);
+	// grunt.registerTask('build', ['concat', 'traceur']);
+	grunt.registerTask('build', ['traceur', 'concat']);
 	grunt.registerTask('serve', ['build', 'watch']);
 
 	grunt.registerTask('default', ['build']);

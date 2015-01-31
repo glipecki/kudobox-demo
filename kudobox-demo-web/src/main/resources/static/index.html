@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org" lang="pl" ng-app="KudoBox">
+<html xmlns:ng="http://angularjs.org" lang="pl">
 	<head>
 		<style type="text/css">
 			[ng\:cloak], [ng-cloak], .ng-cloak {
@@ -9,14 +9,19 @@
 	</head>
 	<body>
 		<p>Hello!</p>
+		
+		<div ng-cloak id="main" ui-view>
+		</div>
 
 		<div ng-cloak id="footer" ng-controller="FooterController as footerController">
-			{{ footerController.sayHello() }}
-			<input ng-model="footerController.name" />
-			{{ footerController.name }}
+			{{ footerController.footerText }}
 		</div>
 
 		<script src="vendor.js"></script>
-		<script src="kudobox.js"></script>
+		<script type="text/javascript" src="kudobox.js"></script>
+		<script type="text/javascript">
+			var kudobox = System.get('net/lipecki/kudobox/KudoBox').default;
+			angular.bootstrap(document, [kudobox]);
+		</script>
 	</body>
 </html>
