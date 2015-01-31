@@ -1,2 +1,3 @@
 # kudobox-demo
-Kudo box AngularJS demo
+Kudo box demo
+AngularJS + ES6
