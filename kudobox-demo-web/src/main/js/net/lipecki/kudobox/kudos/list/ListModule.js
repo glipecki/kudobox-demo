@@ -2,9 +2,7 @@ import ListController from './ListController';
 
 angular
 	.module('ListModule', [])
-	.controller('ListController', ['KudosService', 'kudos', function(kudosService, kudos) {
-		return new ListController(kudosService, kudos);
-	}])
+	.controller('ListController', ['KudosService', 'kudos', ListController])
 	.config(['$stateProvider', function($stateProvider) {
 		$stateProvider
 			.state('list', {

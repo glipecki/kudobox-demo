@@ -50,7 +50,9 @@
 		<script type="text/javascript" src="angular-toastr.tpls.js"></script>
 		<script type="text/javascript">
 			var kudobox = System.get('net/lipecki/kudobox/KudoBox').default;
-			angular.bootstrap(document, [kudobox]);
+			angular.bootstrap(document, [kudobox], {
+				strictDi: true
+			});
 		</script>
 	</body>
 </html>

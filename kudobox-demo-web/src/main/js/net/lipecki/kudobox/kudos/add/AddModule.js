@@ -2,9 +2,7 @@ import AddController from './AddController';
 
 angular
 	.module('AddModule', [])
-	.controller('AddController', ['KudosService', '$scope', 'toastr', '$state', function(kudosService, $scope, toastr, $state) {
-		return new AddController(kudosService, $scope, toastr, $state);
-	}])
+	.controller('AddController', ['KudosService', '$scope', 'toastr', '$state', AddController])
 	.config(['$stateProvider', function($stateProvider) {
 		$stateProvider
 			.state('add', {

@@ -5,8 +5,6 @@ import KudosService from './KudosService';
 
 angular
 	.module('KudosModule', [ListModule, AddModule])
-	.factory('KudosService', ['$http', function($http) {
-		return new KudosService($http);
-	}]);
+	.service('KudosService', ['$http', KudosService]);
 
 export default 'KudosModule';

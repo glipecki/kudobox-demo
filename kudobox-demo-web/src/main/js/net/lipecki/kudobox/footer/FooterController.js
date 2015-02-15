@@ -6,4 +6,3 @@ export default class FooterController {
 		return this.footerService.appName + " (" + this.footerService.appDescription + ")";
 	}
 }
-FooterController.$inject = ['$scope', 'footerService'];
