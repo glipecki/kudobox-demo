@@ -9,13 +9,12 @@ export default class AddController {
 		this.reset();
 	}
 	save(kudos) {
-		let controller = this;
 		this.kudosService.addKudos(kudos)
-				.success(function(data, status, headers, config) {
-					controller.toastr.success('Dzięki za dodanie kudos\'a!', 'Kudos dodany');
-					controller.reset();
-					controller.$state.transitionTo('list');
-				}).error(function(data, status, headers, config) {
+				.success((data, status, headers, config) => {
+					this.toastr.success('Dzięki za dodanie kudos\'a!', 'Kudos dodany');
+					this.reset();
+					this.$state.transitionTo('list');
+				}).error((data, status, headers, config) => {
 					controller.toastr.error('Nie udało się dodać kudos\'a :( Spróbujesz ponownie?.', 'Błąd dodawania kudos\'a!');
 				});
 	}
