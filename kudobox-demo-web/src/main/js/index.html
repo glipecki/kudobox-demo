@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" lang="pl">
+	<head>
+		<style type="text/css">
+			[ng\:cloak], [ng-cloak], .ng-cloak {
+			  display: none !important;
+			}
+		</style>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="jumbotron-narrow.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="angular-toastr.css" />
+		<style type="text/css">
+			.thumb-up {
+				padding-top: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+
+			<!-- Header -->
+			<div class="header">
+		        <nav>
+		          <ul class="nav nav-pills pull-right">
+		            <li role="presentation" class="active"><a ui-sref="list">Lista</a></li>
+		            <li role="presentation"><a ui-sref="add">Dodaj</a></li>
+		          </ul>
+		        </nav>
+		        <h3 class="text-muted">KudoBox</h3>
+	      	</div>
+
+	      	<!-- Main -->
+			<div ng-cloak id="main" ui-view>
+			</div>
+
+	      	<!-- Footer -->
+	      	<footer class="footer" ng-cloak ng-controller="FooterController as footerController">
+		        <p>{{ footerController.footerText }}</p>
+	    	</footer>
+
+		</div> <!-- /container -->
+		<script src="vendor.js"></script>
+		<script type="text/javascript" src="kudobox.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="angular-toastr.tpls.js"></script>
+		<script type="text/javascript">
+			var kudobox = System.get('net/lipecki/kudobox/KudoBox').default;
+			angular.bootstrap(document, [kudobox]);
+		</script>
+	</body>
+</html>

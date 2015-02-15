@@ -1,0 +1,23 @@
+<div>
+	<div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Wyszukaj kudos'a" ng-model="filterText">
+		</div>
+	</div>
+	<div ng-repeat="kudo in listController.kudos | orderBy:'date':true | filter:filterText">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-xs-1 thumb-up">
+					<i class="fa fa-thumbs-o-up fa-3x"></i>
+				</div>
+				<div class="col-xs-11">
+					<h4>Kudos dla {{ kudo.userFor }}!</h4>
+					<blockquote>
+						<p>{{ kudo.message }}</p>
+						<footer>({{ kudo.userFrom }} w dn. {{ kudo.date | date:'d.MM.yyyy H:mm' }})</footer>
+					</blockquote>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

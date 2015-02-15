@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Dodaj kudos'a!</h3>
+	</div>
+	<div class="panel-body">
+		<form name="form" class="form-horizontal" novalidate>
+			<div class="form-group" ng-class="{'has-error': addController.isInvalid(form.inputUserFor), 'has-success': addController.isValid(form.inputUserFor)}">
+			    <label for="inputUserFor" class="col-sm-2 control-label">Użytkownik</label>
+			    <div class="col-sm-10">
+			      	<input class="form-control" name="inputUserFor" id="inputUserFor" placeholder="Użytkownik" ng-model="kudos.userFor" required="">
+			    </div>
+			</div>
+			<div class="form-group" ng-class="{'has-error': addController.isInvalid(form.inputMessage), 'has-success': addController.isValid(form.inputMessage)}">
+			    <label for="inputMessage" class="col-sm-2 control-label">Kudos</label>
+			    <div class="col-sm-10">
+			      	<textarea class="form-control" rows="3" name="inputMessage" id="inputMessage" placeholder="Treść kudos'a" ng-model="kudos.message" required=""></textarea>
+			    </div>
+			</div>
+			<div class="form-group" ng-class="{'has-error': addController.isInvalid(form.inputUserFrom), 'has-success': addController.isValid(form.inputUserFrom)}">
+			    <label for="inputUserFrom" class="col-sm-2 control-label">Autor</label>
+			    <div class="col-sm-10">
+			      	<input class="form-control" name="inputUserFrom" id="inputUserFrom" placeholder="Autor" ng-model="kudos.userFrom" required="">
+			    </div>
+			</div>
+		</form>
+	</div>
+	<div class="panel-footer text-right">
+		<button type="button" class="btn btn-success" ng-click="addController.save(kudos)" ng-disabled="form.$invalid">
+			<span class="glyphicon glyphicon-thumbs-up"></span>
+			Wyślij kudos'a
+		</button>
+	</div>
+</div>

@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 			js: [
 				'target/traceur_runtime.js',
 				'bower_components/angular/angular.js',
+				'bower_components/angular-animate/angular-animate.js',
 				'bower_components/angular-ui-router/release/angular-ui-router.js'
 			]
 		}
@@ -21,11 +22,6 @@ module.exports = function(grunt) {
 		config: config,
 		pkg: grunt.file.readJSON('package.json'),
 		traceur: {
-			// options: {
-			// 	experimental: true,
-   //    			moduleNames: false,
-   //    			copyRuntime: '<%= config.dir.build %>'
-			// },
 			options: {
 				experimental: true,
       			moduleNames: true,
@@ -35,12 +31,6 @@ module.exports = function(grunt) {
       			}
 			},
 			app: {
-				// files: [{
-				// 	expand: true,
-				// 	cwd: '<%= config.dir.build %>',
-				// 	src: ['kudobox.js'],
-				// 	dest: '<%= config.dir.output %>/'
-				// }]
 				files: [{
 					expand: true,
 					cwd: '<%= config.dir.source_js %>',
@@ -62,13 +52,17 @@ module.exports = function(grunt) {
 				src: ['<%= config.vendor.js %>'],
 				dest: '<%= config.dir.output %>/vendor.js'
 			},
-			// app_js: {
-			// 	src: '<%= config.dir.source_js %>/**/*.js',
-			// 	dest: '<%= config.dir.build %>/kudobox.js'
-			// }
 			app_js: {
 				src: '<%= config.dir.build %>/compiled-js/**/*.js',
 				dest: '<%= config.dir.output %>/kudobox.js'
+			}
+		},
+		copy: {
+			main: {
+				expand: true,
+				cwd: 'src/main/js/',
+				src: '**/*.html',
+				dest: '<%= config.dir.output %>'
 			}
 		},
 		watch: {
@@ -77,9 +71,39 @@ module.exports = function(grunt) {
 				tasks: [ 'build' ]
 			},
 			livereload: {
-				files: [ 'src/main/resources/static/**/*.{html,css,js}' ],
+				files: [ 'src/main/resources/static/**/*.{html,css,js}', '<%= config.dir.output %>/**/*.{html,css,js}' ],
 				options: {
 					livereload: true
+				}
+			}
+		},
+		connect: {
+			proxies: [ {
+				context: '/api',
+				host: '127.0.0.1',
+				port: 8080,
+				rewrite: {
+					'^/api': '/api'
+				}
+			} ],
+			server: {
+				options: {
+					port: 9000,
+					base: '<%= config.dir.output %>',
+					livereload: true,
+					middleware: function(connect, options) {
+						if (!Array.isArray(options.base)) {
+							options.base = [ options.base ];
+						}
+						var middlewares = [ require('grunt-connect-proxy/lib/utils').proxyRequest ];
+						options.base.forEach(function(base) {
+							middlewares.push(connect.static(base));
+						});
+						var directory = options.directory
+								|| options.base[options.base.length - 1];
+						middlewares.push(connect.directory(directory));
+						return middlewares;
+					}
 				}
 			}
 		}
@@ -88,10 +112,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-traceur');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-connect-proxy');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-traceur');
+	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	// grunt.registerTask('build', ['concat', 'traceur']);
-	grunt.registerTask('build', ['traceur', 'concat']);
-	grunt.registerTask('serve', ['build', 'watch']);
+	grunt.registerTask('build', ['traceur', 'concat', 'copy']);
+	grunt.registerTask('serve', ['build', 'configureProxies:server', 'connect:server', 'watch']);
 
 	grunt.registerTask('default', ['build']);
 

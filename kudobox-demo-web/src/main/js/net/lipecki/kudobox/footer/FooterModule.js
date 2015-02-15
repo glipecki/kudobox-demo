@@ -2,7 +2,7 @@ import FooterController from './FooterController'
 import FooterService from './FooterService'
 
 angular
-	.module('FooterModule', ['ui.router'])
+	.module('FooterModule', [])
 	.controller('FooterController', ['$scope', 'FooterService', FooterController])
 	.service('FooterService', [FooterService]);
 

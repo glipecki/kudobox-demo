@@ -1,8 +1,8 @@
 export default class FooterService {
 	get appName() {
-		return "KudoBox";
+		return "KudoBox Demo";
 	}
 	get appDescription() {
-		return "AngularJS with ES6 for dummies";
+		return "http://slides.com/gregorry/angularjs-es6";
 	}
 }

@@ -3,3 +3,4 @@ export default class IndexController {
 		return 'Test message from IndexController';
 	}
 }
+IndexController.$inject = [];
