@@ -2,7 +2,7 @@
   "name": "kudobox-demo",
   "dependencies": {
     "angular": "~1.3.11",
-    "angular-animate": "~1.3.11",
+    "angular-animate": "~1.3.13",
     "angular-ui-router": "~0.2.13",
     "angular-translate": "~2.5.2"
   },

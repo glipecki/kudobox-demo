@@ -4,7 +4,7 @@
 			<input type="text" class="form-control" placeholder="Wyszukaj kudos'a" ng-model="filterText">
 		</div>
 	</div>
-	<div ng-repeat="kudo in listController.kudos | orderBy:'date':true | filter:filterText">
+	<div class="kudos-box" ng-repeat="kudo in listController.kudos | orderBy:'date':true | filter:filterText">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="col-xs-1 thumb-up">
