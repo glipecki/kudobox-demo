@@ -4,13 +4,16 @@ export default class ListController {
 		this.kudos = kudos.data;
 		this.$scope = $scope;
 
-		this.kudosService.subscribeToKudosTopic((kudos) => { this.kudosArrived(kudos); });
-		$scope.$on('$destroy', () => {
-			this.kudosService.closeKudosTopic();
-		});
+		this.prepareComet();
 	}
 	kudosArrived(kudos) {
 		this.kudos.push(kudos);
 		this.$scope.$apply();
+	}
+	prepareComet() {
+		this.kudosService.subscribeToKudosTopic((kudos) => { this.kudosArrived(kudos); });
+		this.$scope.$on('$destroy', () => {
+			this.kudosService.closeKudosTopic();
+		});
 	}
 }
