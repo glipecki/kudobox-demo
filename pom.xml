@@ -18,7 +18,7 @@
 	<properties>
 		<!-- Project configuration -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>net.lipecki.kudobox.KudoBoxDemo</start-class>
+		<start-class>net.lipecki.kudobox.KudoBox</start-class>
 		<java.version>1.8</java.version>
 
 		<!-- Maven plugins -->
@@ -30,7 +30,7 @@
 	</properties>
 
 	<dependencyManagement>
-		<dependencies>			
+		<dependencies>
 			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
