@@ -5,9 +5,11 @@ export default class ListController {
 		this.$scope = $scope;
 
 		this.kudosService.subscribeToKudosTopic((kudos) => { this.kudosArrived(kudos); });
+		$scope.$on('$destroy', () => {
+			this.kudosService.closeKudosTopic();
+		});
 	}
 	kudosArrived(kudos) {
-		console.log(this);
 		this.kudos.push(kudos);
 		this.$scope.$apply();
 	}

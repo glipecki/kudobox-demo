@@ -10,12 +10,16 @@ export default class KudosService {
 	}
 	subscribeToKudosTopic(callback) {
 		let socket = new SockJS('/api/websocket', undefined, { debug : false });
-		let stompClient = Stomp.over(socket);
-		stompClient.debug = null;
-		stompClient.connect({}, (frame) => {
-			stompClient.subscribe('/topic/kudos', (data) => {
+		this.stompClient = Stomp.over(socket);
+		this.stompClient.debug = null;
+		this.stompClient.connect({}, (frame) => {
+			this.stompClient.subscribe('/topic/kudos', (data) => {
 				callback(JSON.parse(data.body));
 			});
 		});
+	}
+	closeKudosTopic() {
+		this.stompClient.disconnect();
+		this.stompClient = undefined;
 	}
 }
