@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 		watch: {
 			concat_app: {
 				files: [ 'Gruntfile.js', 'src/main/js/**/*.{html,css,js,js6,scss}', 'src/main/resources/static/**/*.{html,css,js,js6,scss}' ],
-				tasks: [ 'build' ]
+				tasks: [ 'build_local' ]
 			},
 			livereload: {
 				files: [ 'src/main/resources/static/**/*.{html,css,js}', '<%= config.dir.output %>/**/*.{html,css,js}' ],
@@ -107,6 +107,17 @@ module.exports = function(grunt) {
 					}
 				}
 			}
+		},
+		uglify: {
+			options: {
+      			mangle: false
+    		},
+			app: {
+				files: {
+					'<%= config.dir.output %>/vendor.min.js': [ '<%= config.dir.output %>/vendor.js' ],
+					'<%= config.dir.output %>/kudobox.min.js': [ '<%= config.dir.output %>/kudobox.js' ]
+				}
+			}
 		}
 	});
 
@@ -120,8 +131,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-traceur');
 	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
-	grunt.registerTask('build', ['traceur', 'concat', 'copy']);
+	grunt.registerTask('build_local', ['traceur', 'concat', 'copy']);
+	grunt.registerTask('build', ['build_local', 'uglify']);
 	grunt.registerTask('serve', ['build', 'configureProxies:server', 'connect:server', 'watch']);
 
 	grunt.registerTask('default', ['build']);
