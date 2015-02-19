@@ -2,7 +2,7 @@ import ListController from './ListController';
 
 angular
 	.module('ListModule', [])
-	.controller('ListController', ['KudosService', 'kudos', '$scope', ListController])
+	.controller('ListController', ['KudosService', 'KudosWsService', 'kudos', '$scope', ListController])
 	.config(['$stateProvider', function($stateProvider) {
 		$stateProvider
 			.state('list', {

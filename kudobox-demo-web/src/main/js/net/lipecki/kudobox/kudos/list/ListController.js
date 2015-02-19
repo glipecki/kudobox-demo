@@ -1,6 +1,7 @@
 export default class ListController {
-	constructor(kudosService, kudos, $scope) {
+	constructor(kudosService, kudosWsService, kudos, $scope) {
 		this.kudosService = kudosService;
+		this.kudosWsService = kudosWsService;
 		this.kudos = kudos.data;
 		this.$scope = $scope;
 
@@ -11,9 +12,9 @@ export default class ListController {
 		this.$scope.$apply();
 	}
 	prepareComet() {
-		this.kudosService.subscribeToKudosTopic((kudos) => { this.kudosArrived(kudos); });
+		this.kudosWsService.subscribeToKudosTopic((kudos) => { this.kudosArrived(kudos); });
 		this.$scope.$on('$destroy', () => {
-			this.kudosService.closeKudosTopic();
+			this.kudosWsService.closeKudosTopic();
 		});
 	}
 }
