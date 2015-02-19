@@ -7,6 +7,5 @@ export default class KudosService {
 	}
 	getKudos() {
 		return this.$http.get('/api/v1/kudos');
-	}
-	
+	}	
 }
